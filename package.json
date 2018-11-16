@@ -1,0 +1,19 @@
+{
+  "name": "quotes",
+  "version": "1.0.0",
+  "description": "app for random quotes test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "quotes",
+    "jquery",
+    "front-end"
+  ],
+  "author": "khomyakdi",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
