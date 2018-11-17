@@ -27,7 +27,7 @@ body {
 }
 
 .starting-quote {
-    min-height: 200px;
+    min-height: 100px;
     opacity: 0;
     transition: opacity 0.6s;
     text-align: right;
@@ -42,7 +42,7 @@ body {
 #start-btn {
     display: block;
     color: #97673C;
-    margin: 100px auto 0 auto;
+    margin: 50px auto 0 auto;
     width: 256px;
     height: 256px;
     border-radius: 100%;
@@ -54,6 +54,16 @@ body {
     cursor: pointer;
     text-transform: uppercase;
     transition: background-color 0.3s;
+    opacity: 0;
+    animation: start-btn-shows 0.4s 0.6s linear forwards;
+}
+@keyframes start-btn-shows {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 #start-btn:hover {
@@ -99,9 +109,11 @@ body {
     position: relative;
     display: none;
 }
-.question-title{
-    text-align:center;
+
+.question-title {
+    text-align: center;
 }
+
 .progressbar {
     margin: 15px auto;
     width: 100%;
@@ -266,7 +278,7 @@ body {
     outline: none;
 }
 
-@media screen and (max-height: 750px) {
+@media screen and (max-height: 568px) {
     .starting-title {
         margin: 20px auto;
     }
