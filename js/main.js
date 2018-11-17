@@ -1,15 +1,15 @@
 // API authorization header;
-const API_KEY = 'Token token="6e2a14b847ee39bd0b0ca643b1947f5b"'; 
+const API_KEY = 'Token token="6e2a14b847ee39bd0b0ca643b1947f5b"';
 let quotes = []; // Here will be taken from API quotes
 let currentQuote = 0;
-let answerLog=[];
+let answerLog = [];
 let numberOfRightAnswers = 0;
 $(document).ready(function () {
     getRandomQuote();
     let game = $('#game');
     $('#start-btn').on('click', function () {
         $('.starting-screen').hide();
-        getRandomQuotes(); 
+        getRandomQuotes();
     });
     function getRandomQuote() {
         $.ajax({
@@ -21,23 +21,22 @@ $(document).ready(function () {
                     body: reqQuote.quote.body,
                 }
                 //set it to starting quote;
-                $('#strating-quote-body').text(singleQuote.body); 
+                $('#strating-quote-body').text(singleQuote.body);
                 $('#strating-quote-author').text(singleQuote.author);
                 $('.starting-quote').css('opacity', '1');
             }
         })
     }
-    function getRandomQuotes(){
+    function getRandomQuotes() {
         $.ajax({
-            url:'https://favqs.com/api/quotes',
-            type:'GET',
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Authorization',API_KEY);
+            url: 'https://favqs.com/api/quotes',
+            type: 'GET',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', API_KEY);
                 $('#loading').toggle();
             },
-            success: function(reqQuotes) {
-                quotes = reqQuotes.quotes.slice(0,10);
-                console.log(quotes);
+            success: function (reqQuotes) {
+                quotes = reqQuotes.quotes.slice(0, 10);
                 $('#loading').toggle();
                 game.show();
                 setQuestion(0);
@@ -48,22 +47,22 @@ $(document).ready(function () {
 
     function setQuestion(index) {
         currentQuote = index;
-        $('.progress').css('width',(index)*(100/quotes.length)+'%');
-        $('#question-count').text((index+1)+'');
+        $('.progress').css('width', (index) * (100 / quotes.length) + '%');
+        $('#question-count').text((index + 1) + '');
         $('blockquote #strating-quote-body').text(quotes[index].body);
-        setVariants(index) 
+        setVariants(index)
     }
     function setVariants(index) {
         let answers = ['0', '0', '0', '0'];
         let randPos = Math.floor(Math.random() * 3)
         answers[randPos] = quotes[index].author;
-        for(let i = 0; i < 4; i++) {
-            if(answers[i] == '0') {
-                let randAuthor = quotes[Math.floor(Math.random() * (quotes.length-1))].author;
-                while(answers.includes(randAuthor)) {
-                    randAuthor = quotes[Math.floor(Math.random() * (quotes.length-1))].author;
+        for (let i = 0; i < 4; i++) {
+            if (answers[i] == '0') {
+                let randAuthor = quotes[Math.floor(Math.random() * (quotes.length - 1))].author;
+                while (answers.includes(randAuthor)) {
+                    randAuthor = quotes[Math.floor(Math.random() * (quotes.length - 1))].author;
                 }
-                answers[i]= randAuthor;
+                answers[i] = randAuthor;
             }
         }
         $('#answer-1 label').text(answers[0]);
@@ -71,7 +70,7 @@ $(document).ready(function () {
         $('#answer-3 label').text(answers[2]);
         $('#answer-4 label').text(answers[3]);
     }
-    $('.answer-submit-btn').on('click',submitAnswer);
+    $('.answer-submit-btn').on('click', submitAnswer);
     function submitAnswer() {
         $('.invalid-input').hide();
         if ($('.radio-answer:has(input[type=radio]:checked)').length == 0) {
@@ -79,7 +78,7 @@ $(document).ready(function () {
         } else {
             submitedAnswer = $('.radio-answer:has(input[type=radio]:checked) label').text();
             if (submitedAnswer == quotes[currentQuote].author) {
-                logRightAnswer(submitedAnswer); 
+                logRightAnswer(submitedAnswer);
                 numberOfRightAnswers++;
             } else {
                 logWrongAnswer(submitedAnswer)
@@ -87,11 +86,11 @@ $(document).ready(function () {
             nextQuestion();
         }
     }
-    
+
     function logRightAnswer(submitedAnswer) {
         const answer = `
         <div class="quote">
-        <h3>${currentQuote+1}</h3>
+        <h3>${currentQuote + 1}</h3>
             <blockquote>
                 <q>
                     ${quotes[currentQuote].body}
@@ -105,7 +104,7 @@ $(document).ready(function () {
     function logWrongAnswer(submitedAnswer) {
         const answer = `
         <div class="quote">
-            <h3>${currentQuote+1}</h3>
+            <h3>${currentQuote + 1}</h3>
             <blockquote>
                 <q>
                     ${quotes[currentQuote].body}
@@ -119,18 +118,18 @@ $(document).ready(function () {
     }
     function nextQuestion() {
         $('.radio-answer input[type=radio]:checked').prop('checked', false);
-        if (currentQuote == quotes.length -1) {
+        if (currentQuote == quotes.length - 1) {
             showWinScreen();
             return;
         }
-        currentQuote ++;
+        currentQuote++;
         setQuestion(currentQuote);
     }
     function showWinScreen() {
-        const resultPoints = (100*numberOfRightAnswers)/quotes.length;
-        alert (resultPoints);
-        $('#result-value').text(resultPoints+'%');
-        answerLog.map(function(answer) {
+        const resultPoints = (100 * numberOfRightAnswers) / quotes.length;
+
+        $('#result-value').text(resultPoints + '%');
+        answerLog.map(function (answer) {
             $('#win-screen .quotes').append(answer);
         })
         game.hide();
@@ -138,12 +137,10 @@ $(document).ready(function () {
     }
     $('#restart-btn').on('click', newGame);
     function newGame() {
-        console.log('yo');
+
         game.hide();
         $('#loading').hide();
         $('#win-screen').hide();
         $('.starting-screen').show();
     }
 });
-
-

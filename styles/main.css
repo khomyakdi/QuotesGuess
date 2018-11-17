@@ -7,8 +7,8 @@ html, body {
 }
 
 body {
-    width:90%;
-    padding:10px;
+    width: 90%;
+    padding: 10px;
     max-width: 768px;
     margin: auto;
     background-color: #FCF3F3;
@@ -64,39 +64,44 @@ body {
     outline: none;
     border: none;
 }
+
 #loading {
-    text-align:center;
+    text-align: center;
     position: absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    width:70px;
-    height:70px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
     box-sizing: border-box;
-    border-radius:50%;
+    border-radius: 50%;
     border: 10px solid;
-    border-right-color:#FCF3F3; 
+    border-right-color: #FCF3F3;
     animation: loading-rotation 1s infinite linear;
-    display:none;
+    display: none;
 }
-@keyframes loading-rotation{
+
+@keyframes loading-rotation {
     from {
-    transform:translate(-50%, -50%) rotate(0);
+        transform: translate(-50%, -50%) rotate(0);
     }
     to {
-    transform:translate(-50%, -50%) rotate(360deg);
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
-}
+
 #game {
-    display:none;
+    display: none;
     position: relative;
 }
 
 .question {
     position: relative;
-    display:none;
+    display: none;
 }
-
+.question-title{
+    text-align:center;
+}
 .progressbar {
     margin: 15px auto;
     width: 100%;
@@ -172,11 +177,13 @@ body {
 .radio-answer input[type=radio]:checked+span {
     background-color: #B2FCE4;
 }
+
 .invalid-input {
-    display:none;
-    color:#E56262;
-    text-align:center
+    display: none;
+    color: #E56262;
+    text-align: center
 }
+
 .answer-submit-btn {
     width: 100%;
     height: 40px;
@@ -188,50 +195,63 @@ body {
     border-radius: 9px;
     margin-top: 30px;
 }
+
 .answer-submit-btn:active, .answer-submit-btn:focus {
-    color:#97673C;
+    color: #97673C;
     outline: none;
 }
+
 /*WIN SCREEN*/
+
 #win-screen {
-    display:none;
+    display: none;
 }
+
 #win-screen h1 {
-    text-align:center;
-    padding-bottom:25px;
-    border-bottom:2px solid;
+    text-align: center;
+    padding-bottom: 25px;
+    border-bottom: 2px solid;
 }
+
 #result-value {
-    padding-left:20px;
+    padding-left: 20px;
 }
+
 .right-answer {
     color: #4AAE90;
 }
+
 .wrong-answer {
     color: #E56262;
 }
+
 .quotes .quote {
-    text-align:right;
+    text-align: right;
 }
+
 .quotes .quote h3 {
-    text-align:center;
+    text-align: center;
 }
-.quotes .quote blockquote{ 
+
+.quotes .quote blockquote {
     padding: 0;
     margin: 0;
     margin-bottom: 20px;
     text-align: justify;
 }
-.quotes .quote i{    
-    text-align:right;
+
+.quotes .quote i {
+    text-align: right;
 }
+
 .quotes .quote .wrong {
     text-decoration: line-through;
 }
+
 #restart-btn {
-    display:block;
-    width:100%;
-    height:70px;
+    display: block;
+    width: 100%;
+    height: 70px;
     border: none;
     font-size: 1.2em;
     color: #B87D49;
@@ -240,24 +260,27 @@ body {
     border-radius: 9px;
     margin: 70px auto 0 auto;
 }
+
 #restart-btn:active, #restart-btn:focus {
-    color:#97673C;
+    color: #97673C;
     outline: none;
 }
+
 @media screen and (max-height: 750px) {
     .starting-title {
         margin: 20px auto;
     }
     .starting-quote {
-        min-height:100px;
+        min-height: 100px;
     }
     #start-btn {
         margin: 10px auto 0 auto;
-        border-radius:0;
+        border-radius: 0;
         height: 50px;
         font-size: 1.5rem;
     }
 }
+
 @media screen and (max-width: 768px) {
     .radio-answer {
         width: 100%;
