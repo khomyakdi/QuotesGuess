@@ -24,6 +24,7 @@ $(document).ready(function () {
                 $('#strating-quote-body').text(singleQuote.body);
                 $('#strating-quote-author').text(singleQuote.author);
                 $('.starting-quote').css('opacity', '1');
+                $('#start-btn').show();
             }
         })
     }
@@ -142,5 +143,6 @@ $(document).ready(function () {
         $('#loading').hide();
         $('#win-screen').hide();
         $('.starting-screen').show();
+        getRandomQuote();
     }
 });
