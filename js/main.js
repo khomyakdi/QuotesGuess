@@ -73,14 +73,19 @@ $(document).ready(function () {
     }
     $('.answer-submit-btn').on('click',submitAnswer);
     function submitAnswer() {
-        submitedAnswer = $('.radio-answer:has(input[type=radio]:checked) label').text();
-        if (submitedAnswer == quotes[currentQuote].author) {
-            logRightAnswer(submitedAnswer); 
-            numberOfRightAnswers++;
+        $('.invalid-input').hide();
+        if ($('.radio-answer:has(input[type=radio]:checked)').length == 0) {
+            $('.invalid-input').show();
         } else {
-            logWrongAnswer(submitedAnswer)
+            submitedAnswer = $('.radio-answer:has(input[type=radio]:checked) label').text();
+            if (submitedAnswer == quotes[currentQuote].author) {
+                logRightAnswer(submitedAnswer); 
+                numberOfRightAnswers++;
+            } else {
+                logWrongAnswer(submitedAnswer)
+            }
+            nextQuestion();
         }
-        nextQuestion();
     }
     
     function logRightAnswer(submitedAnswer) {
