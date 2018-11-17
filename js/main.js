@@ -1,5 +1,5 @@
 // API authorization header;
-const API_KEY = 'Token token="6e2a14b847ee39bd0b0ca643b1947f5b"';
+const API_KEY = 'Token token="468c603cb37c384da4a572f4dff660e5"';
 let quotes = []; // Here will be taken from API quotes
 let currentQuote = 0;
 let answerLog = [];
