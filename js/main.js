@@ -99,15 +99,15 @@ $(document).ready(function () {
     function logWrongAnswer(submitedAnswer) {
         const answer = `
         <div class="quote">
+            <h3>${currentQuote}</h3>
             <blockquote>
                 <q>
                     ${quotes[currentQuote].body}
                 </q>
             </blockquote>
-            Right answer:<i>${submitedAnswer}</i>
-            Your answer:<i class="wrong-answer">${submitedAnswer}</i>
-
-        </div>
+            <div class="wrong wrong-answer"><i>${submitedAnswer}</i></div>
+                <i>${quotes[currentQuote].author}</i>
+</div>
         `;
         answerLog.push()//
     }

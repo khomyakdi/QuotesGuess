@@ -7,15 +7,17 @@ html, body {
 }
 
 body {
+    width:90%;
+    padding:10px;
     max-width: 768px;
     margin: auto;
-    background-color: #FCEFEF;
+    background-color: #FCF3F3;
 }
 
 .starting-screen {
     width: 100%;
     height: 100%;
-    
+    /* display:none; */
 }
 
 .starting-title {
@@ -166,10 +168,55 @@ body {
     color:#97673C;
     outline: none;
 }
-.right-answer {
-    background-color: #5AD4AF;
+/*WIN SCREEN*/
+#win-screen {
+    display:none;
 }
-
+#win-screen h1 {
+    text-align:center;
+    padding-bottom:25px;
+    border-bottom:2px solid;
+}
+#result-value {
+    padding-left:20px;
+}
+.right-answer {
+    color: #4AAE90;
+}
 .wrong-answer {
-    background-color: #E4B8B4;
+    color: #E56262;
+}
+.quotes .quote {
+    text-align:right;
+}
+.quotes .quote h3 {
+    text-align:center;
+}
+.quotes .quote blockquote{ 
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+.quotes .quote i{    
+    text-align:right;
+}
+.quotes .quote .wrong {
+    text-decoration: line-through;
+}
+#restart-btn {
+    display:block;
+    width:100%;
+    height:70px;
+    border: none;
+    font-size: 1.2em;
+    color: #B87D49;
+    background-color: #FCEFEF;
+    border: 2px solid;
+    border-radius: 9px;
+    margin: 70px auto 0 auto;
+}
+#restart-btn:active, #restart-btn:focus {
+    color:#97673C;
+    outline: none;
 }
