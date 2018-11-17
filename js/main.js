@@ -7,14 +7,14 @@ let numberOfRightAnswers = 0;
 $(document).ready(function () {
     getRandomQuote();
     let game = $('#game');
-    $("#start-btn").on("click", function () {
-        $(".starting-screen").toggle();
+    $('#start-btn').on('click', function () {
+        $('.starting-screen').hide();
         getRandomQuotes(); 
     });
     function getRandomQuote() {
         $.ajax({
-            url: "https://favqs.com/api/qotd", //Take one random quote
-            type: "GET",
+            url: 'https://favqs.com/api/qotd', //Take one random quote
+            type: 'GET',
             success: function (reqQuote) {
                 const singleQuote = {
                     author: reqQuote.quote.author,
@@ -29,17 +29,17 @@ $(document).ready(function () {
     }
     function getRandomQuotes(){
         $.ajax({
-            url:"https://favqs.com/api/quotes",
-            type:"GET",
+            url:'https://favqs.com/api/quotes',
+            type:'GET',
             beforeSend: function(xhr) {
-                xhr.setRequestHeader("Authorization",API_KEY);
+                xhr.setRequestHeader('Authorization',API_KEY);
                 $('#loading').toggle();
             },
             success: function(reqQuotes) {
                 quotes = reqQuotes.quotes.slice(0,10);
                 console.log(quotes);
                 $('#loading').toggle();
-                game.toggle();
+                game.show();
                 setQuestion(0);
                 $('.question').show();
             }
@@ -48,8 +48,8 @@ $(document).ready(function () {
 
     function setQuestion(index) {
         currentQuote = index;
-        $(".progress").css("width",(index+1)*(100/quotes.length)+"%");
-        $('#question-count').text((index+1)+"");
+        $('.progress').css('width',(index)*(100/quotes.length)+'%');
+        $('#question-count').text((index+1)+'');
         $('blockquote #strating-quote-body').text(quotes[index].body);
         setVariants(index) 
     }
@@ -91,6 +91,7 @@ $(document).ready(function () {
     function logRightAnswer(submitedAnswer) {
         const answer = `
         <div class="quote">
+        <h3>${currentQuote+1}</h3>
             <blockquote>
                 <q>
                     ${quotes[currentQuote].body}
@@ -99,12 +100,12 @@ $(document).ready(function () {
             <i class="right-answer">${quotes[currentQuote].author}</i>
         </div>
         `;
-        answerLog.push()//
+        answerLog.push(answer)//
     }
     function logWrongAnswer(submitedAnswer) {
         const answer = `
         <div class="quote">
-            <h3>${currentQuote}</h3>
+            <h3>${currentQuote+1}</h3>
             <blockquote>
                 <q>
                     ${quotes[currentQuote].body}
@@ -114,7 +115,7 @@ $(document).ready(function () {
                 <i>${quotes[currentQuote].author}</i>
 </div>
         `;
-        answerLog.push()//
+        answerLog.push(answer)//
     }
     function nextQuestion() {
         $('.radio-answer input[type=radio]:checked').prop('checked', false);
@@ -128,6 +129,20 @@ $(document).ready(function () {
     function showWinScreen() {
         const resultPoints = (100*numberOfRightAnswers)/quotes.length;
         alert (resultPoints);
+        $('#result-value').text(resultPoints+'%');
+        answerLog.map(function(answer) {
+            $('#win-screen .quotes').append(answer);
+        })
+        game.hide();
+        $('#win-screen').show();
+    }
+    $('#restart-btn').on('click', newGame);
+    function newGame() {
+        console.log('yo');
+        game.hide();
+        $('#loading').hide();
+        $('#win-screen').hide();
+        $('.starting-screen').show();
     }
 });
 
