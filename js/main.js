@@ -1,28 +1,129 @@
 // API authorization header;
-var API_KEY = 'Token token="6e2a14b847ee39bd0b0ca643b1947f5b"'; 
-var quotes = []; // Here will be taken from API quotes
-
+const API_KEY = 'Token token="6e2a14b847ee39bd0b0ca643b1947f5b"'; 
+let quotes = []; // Here will be taken from API quotes
+let currentQuote = 0;
+let answerLog=[];
+let numberOfRightAnswers = 0;
 $(document).ready(function () {
     getRandomQuote();
-    var game = $('#game');
+    let game = $('#game');
     $("#start-btn").on("click", function () {
         $(".starting-screen").toggle();
-        game.toggle();
+        getRandomQuotes(); 
     });
-});
-function getRandomQuote() {
-    $.ajax({
-        url: "https://favqs.com/api/qotd", //Take one random quote
-        type: "GET",
-        success: function (reqQuote) {
-            var singleQuote = {
-                author: reqQuote.quote.author,
-                body: reqQuote.quote.body,
+    function getRandomQuote() {
+        $.ajax({
+            url: "https://favqs.com/api/qotd", //Take one random quote
+            type: "GET",
+            success: function (reqQuote) {
+                const singleQuote = {
+                    author: reqQuote.quote.author,
+                    body: reqQuote.quote.body,
+                }
+                //set it to starting quote;
+                $('#strating-quote-body').text(singleQuote.body); 
+                $('#strating-quote-author').text(singleQuote.author);
+                $('.starting-quote').css('opacity', '1');
             }
-            //set it to starting quote;
-            $('#strating-quote-body').text(singleQuote.body); 
-            $('#strating-quote-author').text(singleQuote.author);
-            $('.starting-quote').css('opacity', '1');
+        })
+    }
+    function getRandomQuotes(){
+        $.ajax({
+            url:"https://favqs.com/api/quotes",
+            type:"GET",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization",API_KEY);
+                $('#loading').toggle();
+            },
+            success: function(reqQuotes) {
+                quotes = reqQuotes.quotes.slice(0,10);
+                console.log(quotes);
+                $('#loading').toggle();
+                game.toggle();
+                setQuestion(0);
+                $('.question').show();
+            }
+        })
+    }
+
+    function setQuestion(index) {
+        currentQuote = index;
+        $(".progress").css("width",(index+1)*(100/quotes.length)+"%");
+        $('#question-count').text((index+1)+"");
+        $('blockquote #strating-quote-body').text(quotes[index].body);
+        setVariants(index) 
+    }
+    function setVariants(index) {
+        let answers = ['0', '0', '0', '0'];
+        let randPos = Math.floor(Math.random() * 3)
+        answers[randPos] = quotes[index].author;
+        for(let i = 0; i < 4; i++) {
+            if(answers[i] == '0') {
+                let randAuthor = quotes[Math.floor(Math.random() * (quotes.length-1))].author;
+                while(answers.includes(randAuthor)) {
+                    randAuthor = quotes[Math.floor(Math.random() * (quotes.length-1))].author;
+                }
+                answers[i]= randAuthor;
+            }
         }
-    })
-}
+        $('#answer-1 label').text(answers[0]);
+        $('#answer-2 label').text(answers[1]);
+        $('#answer-3 label').text(answers[2]);
+        $('#answer-4 label').text(answers[3]);
+    }
+    $('.answer-submit-btn').on('click',submitAnswer);
+    function submitAnswer() {
+        submitedAnswer = $('.radio-answer:has(input[type=radio]:checked) label').text();
+        if (submitedAnswer == quotes[currentQuote].author) {
+            logRightAnswer(submitedAnswer); 
+            numberOfRightAnswers++;
+        } else {
+            logWrongAnswer(submitedAnswer)
+        }
+        nextQuestion();
+    }
+    
+    function logRightAnswer(submitedAnswer) {
+        const answer = `
+        <div class="quote">
+            <blockquote>
+                <q>
+                    ${quotes[currentQuote].body}
+                </q>
+            </blockquote>
+            <i class="right-answer">${quotes[currentQuote].author}</i>
+        </div>
+        `;
+        answerLog.push()//
+    }
+    function logWrongAnswer(submitedAnswer) {
+        const answer = `
+        <div class="quote">
+            <blockquote>
+                <q>
+                    ${quotes[currentQuote].body}
+                </q>
+            </blockquote>
+            Right answer:<i>${submitedAnswer}</i>
+            Your answer:<i class="wrong-answer">${submitedAnswer}</i>
+
+        </div>
+        `;
+        answerLog.push()//
+    }
+    function nextQuestion() {
+        $('.radio-answer input[type=radio]:checked').prop('checked', false);
+        if (currentQuote == quotes.length -1) {
+            showWinScreen();
+            return;
+        }
+        currentQuote ++;
+        setQuestion(currentQuote);
+    }
+    function showWinScreen() {
+        const resultPoints = (100*numberOfRightAnswers)/quotes.length;
+        alert (resultPoints);
+    }
+});
+
+

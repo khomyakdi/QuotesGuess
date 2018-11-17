@@ -1,6 +1,6 @@
 html, body {
     margin: 0;
-    padding: 0;
+    padding: 0 10px;
     font-family: 'Roboto', sans-serif;
     font-size: 1.1em;
     color: #B87D49;
@@ -15,7 +15,7 @@ body {
 .starting-screen {
     width: 100%;
     height: 100%;
-    display: none;
+    
 }
 
 .starting-title {
@@ -61,14 +61,18 @@ body {
     outline: none;
     border: none;
 }
-
+#loading {
+    text-align:center;
+    display:none;
+}
 #game {
-    /* display:none; */
+    display:none;
     position: relative;
 }
 
 .question {
     position: relative;
+    display:none;
 }
 
 .progressbar {
