@@ -27,7 +27,7 @@ body {
 }
 
 .starting-quote {
-    height: 200px;
+    min-height: 200px;
     opacity: 0;
     transition: opacity 0.6s;
     text-align: right;
@@ -41,6 +41,7 @@ body {
 
 #start-btn {
     display: block;
+    color: #97673C;
     margin: 100px auto 0 auto;
     width: 256px;
     height: 256px;
@@ -242,4 +243,24 @@ body {
 #restart-btn:active, #restart-btn:focus {
     color:#97673C;
     outline: none;
+}
+@media screen and (max-height: 750px) {
+    .starting-title {
+        margin: 20px auto;
+    }
+    .starting-quote {
+        min-height:100px;
+    }
+    #start-btn {
+        margin: 10px auto 0 auto;
+        border-radius:0;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+@media screen and (max-width: 768px) {
+    .radio-answer {
+        width: 100%;
+        margin: 10px 0;
+    }
 }
